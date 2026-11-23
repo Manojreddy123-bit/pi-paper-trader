@@ -42,22 +42,3 @@ def test_costs_reduce_returns():
     free, _ = backtest(o, o, w, None, cash0=1000, max_pos=1, max_w=1.0, stop=None, cost=0)
     paid, _ = backtest(o, o, w, None, cash0=1000, max_pos=1, max_w=1.0, stop=None, cost=0.01)
     assert paid.iloc[-1] < free.iloc[-1]
-
-
-def test_buy_and_hold_matches_manual():
-    idx = pd.date_range("2024-01-01", periods=5)
-    opens = pd.DataFrame({"A": [10, 11, 12, 13, 14.0]}, index=idx)
-    closes = pd.DataFrame({"A": [10.5, 11.5, 12.5, 13.5, 14.5]}, index=idx)
-    want = pd.DataFrame({"A": [1] * 5}, index=idx)
-    eq, _ = backtest(opens, closes, want, None, cash0=1000, max_pos=1, max_w=1.0, stop=None, cost=0)
-    shares = int(1000 // 11)
-    assert abs(eq.iloc[-1] - (1000 - shares * 11 + shares * 14.5)) < 1e-6
-
-
-def test_costs_reduce_returns():
-    idx = pd.date_range("2024-01-01", periods=5)
-    o = pd.DataFrame({"A": [10.0] * 5}, index=idx)
-    w = pd.DataFrame({"A": [1] * 5}, index=idx)
-    free, _ = backtest(o, o, w, None, cash0=1000, max_pos=1, max_w=1.0, stop=None, cost=0)
-    paid, _ = backtest(o, o, w, None, cash0=1000, max_pos=1, max_w=1.0, stop=None, cost=0.01)
-    assert paid.iloc[-1] < free.iloc[-1]
