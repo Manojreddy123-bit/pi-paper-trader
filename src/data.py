@@ -42,8 +42,8 @@ def fetch(ticker, start=None, retries=3):
             if df.empty:
                 raise ValueError("no data returned")
             df = df.reset_index()
-            df["date"] = pd.to_datetime(df["Date"]).dt.strftime("%Y-%m-%d")
             df = df.rename(columns=str.lower)
+            df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
             return df[["date", "open", "high", "low", "close", "volume"]].dropna(subset=["close"])
         except Exception as e:
             log.warning("%s attempt %d/%d failed: %s", ticker, attempt, retries, e)
