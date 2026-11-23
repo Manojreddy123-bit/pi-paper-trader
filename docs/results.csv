@@ -1,0 +1,5 @@
+,Total return %,CAGR %,Sharpe,Max drawdown %,Final value,Trades
+Buy & hold,17.27,5.78,0.6,-13.18,117272.63,14
+MA 20/50 crossover,1.91,0.67,0.12,-20.46,101907.47,236
+LightGBM,-37.49,-15.28,-1.58,-40.22,62506.9,3630
+Nifty 50,17.06,5.72,0.48,-15.77,117063.13,0
